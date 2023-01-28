@@ -35,8 +35,11 @@ class _LoginPageState extends State<LoginPage> {
           var a = await auth.signInWithCredential(credential);
           print("Success");
           print("Auth");
+          setState(() {
+            passed = "Passed";
+          });
           print(a.toString());
-          Navigator.push(context,
+          Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => admin_Homepage()));
         },
         codeAutoRetrievalTimeout: (a) {},
@@ -46,6 +49,9 @@ class _LoginPageState extends State<LoginPage> {
       print(e.toString());
     }
   }
+
+  //demo
+  String passed = "";
 
   @override
   Widget build(BuildContext context) {
@@ -155,6 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                   // SizedBox(
                   //   height: 50,
                   // ),
+                  Text(passed),
                   Spacer(),
                   ElevatedButton(
                     onLongPress: () {

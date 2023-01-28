@@ -25,9 +25,9 @@ class _OTPState extends State<OTP> {
               height: 50,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 30),
+              // padding: EdgeInsets.symmetric(horizontal: 30),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   for (int i = 0; i < value.length; i++) otpcontainer(value[i]),
                   for (int i = 0; i < 6 - value.length; i++) otpcontainer(" "),
@@ -85,7 +85,8 @@ class _OTPState extends State<OTP> {
   Widget otpcontainer(String i) {
     return Container(
       height: 60,
-      width: 50,
+      margin: EdgeInsets.symmetric(horizontal: 3),
+      width: MediaQuery.of(context).size.width / 8,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: maincolor.withAlpha(30),
