@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-Color maincolor = Color(0xff23967F);
+// Color maincolor = Color(0xff23967F);
+Color maincolor = Color(0xff783F8E);
 Color backgroundcolor = Color(0xffFDE2FF);
 
 Opacity background(context) {
@@ -15,3 +16,20 @@ Opacity background(context) {
     ),
   );
 }
+
+InputDecoration textfielddecoration = InputDecoration(
+  focusedBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(20),
+    borderSide: BorderSide(
+      color: maincolor,
+      width: 1.5,
+    ),
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(12),
+    borderSide: BorderSide(
+      color: Colors.black,
+      width: 1,
+    ),
+  ),
+);

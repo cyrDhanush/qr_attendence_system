@@ -116,7 +116,8 @@ class _WelcomePageState extends State<WelcomePage> {
                               child: Container(
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Colors.black.withAlpha(200),
+                                  // color: Colors.black.withAlpha(200),
+                                  color: maincolor,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Text(

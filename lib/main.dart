@@ -1,6 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:qr_attendence_system/global.dart';
+import 'package:qr_attendence_system/screens/Adminscreens/add_new_class.dart';
+import 'package:qr_attendence_system/screens/Adminscreens/admin_homepage.dart';
+import 'package:qr_attendence_system/screens/Adminscreens/class_page.dart';
+import 'package:qr_attendence_system/screens/Adminscreens/studentlist.dart';
 import 'package:qr_attendence_system/screens/welcome_page.dart';
 
 void main() async {
@@ -24,10 +29,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.white,
-        colorSchemeSeed: Colors.blue,
+        colorSchemeSeed: maincolor,
       ),
-      // home: WelcomePage(),
       home: WelcomePage(),
+      // home: admin_Homepage(),
+      // home: studentList(),
     );
   }
 }

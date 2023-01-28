@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_attendence_system/global.dart';
 
 class OTP extends StatefulWidget {
   const OTP({Key? key}) : super(key: key);
@@ -32,6 +33,15 @@ class _OTPState extends State<OTP> {
                   for (int i = 0; i < 6 - value.length; i++) otpcontainer(" "),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Change Phone Number ??"),
             ),
             Spacer(),
             Column(
@@ -78,7 +88,7 @@ class _OTPState extends State<OTP> {
       width: 50,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Colors.black.withAlpha(30),
+        color: maincolor.withAlpha(30),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
@@ -120,7 +130,9 @@ class _OTPState extends State<OTP> {
     return Expanded(
       child: TextButton(
         onPressed: () {
-          Navigator.pop(context, value);
+          if (value.length == 6) {
+            Navigator.pop(context, value);
+          }
         },
         style: TextButton.styleFrom(),
         child: Container(

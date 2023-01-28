@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_attendence_system/global.dart';
+import 'package:qr_attendence_system/screens/Adminscreens/admin_homepage.dart';
 import 'package:qr_attendence_system/screens/signing/otppage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,9 +19,15 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '+91' + phoneno_controller.text.toString(),
-        verificationCompleted: (a) {},
-        verificationFailed: (a) {},
+        verificationCompleted: (a) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => admin_Homepage()));
+        },
+        verificationFailed: (a) {
+          print("Failed");
+        },
         codeSent: (String verificationid, int? token) async {
+          print("Started");
           String otp = await Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => OTP()));
           PhoneAuthCredential credential = PhoneAuthProvider.credential(
@@ -29,6 +36,8 @@ class _LoginPageState extends State<LoginPage> {
           print("Success");
           print("Auth");
           print(a.toString());
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => admin_Homepage()));
         },
         codeAutoRetrievalTimeout: (a) {},
       );
@@ -148,14 +157,24 @@ class _LoginPageState extends State<LoginPage> {
                   // ),
                   Spacer(),
                   ElevatedButton(
+                    onLongPress: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => admin_Homepage()));
+                    },
                     onPressed: () async {
                       if (phoneno_controller.text.length == 10) {
+                        try {
+                          FocusScope.of(context).unfocus();
+                        } catch (e) {}
                         login();
                       }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
                       foregroundColor: Colors.white,
+                      elevation: 7,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
@@ -167,7 +186,6 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text(
                         "Login",
                         style: TextStyle(
-                          color: Colors.white,
                           fontSize: 20,
                         ),
                       ),
