@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_attendence_system/global.dart';
 
@@ -11,6 +12,11 @@ class add_newclass extends StatefulWidget {
 class _add_newclassState extends State<add_newclass> {
   TextEditingController classname = TextEditingController();
   TextEditingController classdes = TextEditingController();
+
+  // Databaseref
+  DatabaseReference ref = FirebaseDatabase.instance.ref('classdetails/');
+  List data = [];
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -19,10 +25,40 @@ class _add_newclassState extends State<add_newclass> {
     classdes.dispose();
   }
 
-  void submit() {
+  void submit() async {
     if (classname.text.length != 0) {
-      print("success");
+      await ref.push().set(
+        {
+          "classname": classname.text.toString(),
+          "classdescription": (classdes.text.toString() == "")
+              ? ("Description not provided")
+              : (classdes.text.toString()),
+          "joinedstudents": [],
+        },
+      );
+      print("Success");
+      Navigator.pop(context, true);
     }
+  }
+
+  // void getdata() async {
+  //   // var snapshot = await ref.get();
+  //   // print(snapshot.value.runtimeType);
+  //   data = [];
+  //   await ref.once().then((snapshot) {
+  //     print(snapshot.snapshot.children);
+  //     for (var i in snapshot.snapshot.children) {
+  //       data.add(i);
+  //     }
+  //     print(data[0].key);
+  //   });
+  // }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // getdata();
   }
 
   @override

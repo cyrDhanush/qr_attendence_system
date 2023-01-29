@@ -1,15 +1,20 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_attendence_system/global.dart';
+import 'package:qr_attendence_system/models/classmodel.dart';
 import 'package:qr_attendence_system/screens/Adminscreens/studentlist.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class classPage extends StatefulWidget {
-  const classPage({Key? key}) : super(key: key);
+  final classmodel classobj;
+  const classPage({Key? key, required this.classobj}) : super(key: key);
 
   @override
   State<classPage> createState() => _classPageState();
 }
 
 class _classPageState extends State<classPage> {
+  DatabaseReference ref = FirebaseDatabase.instance.ref('classdetails/');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +29,22 @@ class _classPageState extends State<classPage> {
           ),
         ),
         title: Text(
-          "Class Name",
+          // "Class Name",
+          widget.classobj.classname,
         ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await ref.child(widget.classobj.classid).remove();
+              print("deleted");
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.delete_outline_rounded,
+              color: Colors.red,
+            ),
+          ),
+        ],
         centerTitle: true,
       ),
       body: Container(
@@ -35,20 +54,27 @@ class _classPageState extends State<classPage> {
             SizedBox(
               height: 20,
             ),
-            Container(
-              height: MediaQuery.of(context).size.width - 30,
-              width: MediaQuery.of(context).size.width,
-              child: Image.asset(
-                "assets/qrcode.jpg",
-                fit: BoxFit.contain,
+            Card(
+              elevation: 7,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Container(
+                height: MediaQuery.of(context).size.width - 30,
+                width: MediaQuery.of(context).size.width,
+                alignment: Alignment.center,
+                child: QrImage(
+                  data: widget.classobj.classid,
+                  foregroundColor: Colors.black,
+                  padding: EdgeInsets.all(10),
+                ),
               ),
             ),
             SizedBox(
               height: 30,
             ),
             Text(
-              "Description of the class in long word ad"
-              "slfk asdfasdflj;lckj poij io",
+              widget.classobj.classdescription,
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 14,

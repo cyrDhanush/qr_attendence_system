@@ -39,6 +39,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                   Container(
                     //top photo
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     height: 500,
                     width: MediaQuery.of(context).size.width,
                     child: Column(
@@ -46,6 +47,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       children: [
                         Text(
                           "QR Code Attendence System",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -89,12 +91,24 @@ class _WelcomePageState extends State<WelcomePage> {
                         Expanded(
                           child: Container(
                             alignment: Alignment.center,
-                            child: Text(
-                              "Sign up",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Login with Us",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Icon(
+                                  Icons.navigate_next_rounded,
+                                  color: maincolor,
+                                ),
+                              ],
                             ),
                           ),
                         ),
