@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_attendence_system/global.dart';
 import 'package:qr_attendence_system/screens/Adminscreens/admin_homepage.dart';
+import 'package:qr_attendence_system/screens/Userscreens/userHomepage.dart';
 import 'package:qr_attendence_system/screens/signing/otppage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,41 +15,136 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   TextEditingController phoneno_controller = TextEditingController();
+  TextEditingController name_controller = TextEditingController();
+
   FirebaseAuth auth = FirebaseAuth.instance;
+  DatabaseReference ref = FirebaseDatabase.instance.ref('userdetails');
+
+  Future checkindatabase(UserCredential userCredential) async {
+    // to check whether the usercredential is in database or not
+
+    var data = await ref.get();
+    List mylist = [];
+    for (var i in data.children) {
+      mylist.add(i);
+    }
+    for (var i in mylist) {
+      if (i.value['userphoneno'] ==
+          userCredential.user!.phoneNumber.toString()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Future getkeyofuser(UserCredential userCredential) async {
+    // to get the key of the user
+    var data = await ref.get();
+    List mylist = [];
+    for (var i in data.children) {
+      mylist.add(i);
+    }
+    for (var i in mylist) {
+      if (i.value['userid'] == userCredential.user!.uid) {
+        return (i.key);
+      }
+    }
+  }
+
+  Future getname() {
+    var a = showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => SimpleDialog(
+        contentPadding: EdgeInsets.symmetric(vertical: 25, horizontal: 25),
+        title: Text("Enter Your Name"),
+        children: [
+          TextField(
+            controller: name_controller,
+            decoration: textfielddecoration.copyWith(
+              hintText: "Enter Your Name",
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 5,
+                horizontal: 10,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: () {
+                  if (name_controller.text.length != 0) {
+                    Navigator.pop(context);
+                  }
+                },
+                child: Text("Ok"),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+    return a;
+  }
 
   void login() async {
     try {
-      await FirebaseAuth.instance.verifyPhoneNumber(
+      await auth.verifyPhoneNumber(
         phoneNumber: '+91' + phoneno_controller.text.toString(),
         verificationCompleted: (a) {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => admin_Homepage()));
         },
         verificationFailed: (a) {
-          print("Failed");
+          print(a.toString());
         },
         codeSent: (String verificationid, int? token) async {
-          print("Started");
           String otp = await Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => OTP()));
+
           PhoneAuthCredential credential = PhoneAuthProvider.credential(
               verificationId: verificationid, smsCode: otp);
-          var a = await auth.signInWithCredential(credential);
-          print("Success");
-          print("Auth");
-          setState(() {
-            passed = "Passed";
-          });
-          print(a.toString());
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => admin_Homepage()));
+
+          var credentials = await auth.signInWithCredential(credential);
+          //check database if user is new or not
+          var isthere = await checkindatabase(credentials);
+          if (isthere == false) {
+            //add data and phone number into database
+            await getname();
+            ref.push().set({
+              'userid': credentials.user!.uid.toString(),
+              'username': name_controller.text,
+              'userphoneno': credentials.user!.phoneNumber.toString(),
+            });
+          }
+          var userkey = await getkeyofuser(credentials);
+          var user = await ref.child(userkey).get();
+          var uservalue = user.children.elementAt(0);
+          if (uservalue.key == 'admin' && uservalue.value == true) {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => admin_Homepage()));
+          } else {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => userHomepage()));
+          }
         },
         codeAutoRetrievalTimeout: (a) {},
       );
     } catch (e) {
-      print("erro occured");
       print(e.toString());
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    name_controller.dispose();
+    phoneno_controller.dispose();
   }
 
   //demo
@@ -56,6 +153,47 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => SimpleDialog(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 25, horizontal: 25),
+              title: Text("Enter Your Name"),
+              children: [
+                TextField(
+                  controller: name_controller,
+                  decoration: textfielddecoration.copyWith(
+                    hintText: "Enter Your Name",
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: 5,
+                      horizontal: 10,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        if (name_controller.text.length != 0) {
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: Text("Ok"),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          );
+        },
+      ),
       body: Stack(
         children: [
           background(context),

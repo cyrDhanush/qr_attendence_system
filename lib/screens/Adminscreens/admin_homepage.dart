@@ -36,10 +36,13 @@ class _admin_HomepageState extends State<admin_Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Admin Dashboard"),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: Icon(
               Icons.logout_rounded,
               color: maincolor,
