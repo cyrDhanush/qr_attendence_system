@@ -17,6 +17,13 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController phoneno_controller = TextEditingController();
   TextEditingController name_controller = TextEditingController();
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // phoneno_controller.text = '1234567890';
+  }
+
   FirebaseAuth auth = FirebaseAuth.instance;
   DatabaseReference ref = FirebaseDatabase.instance.ref('userdetails');
 
@@ -105,6 +112,7 @@ class _LoginPageState extends State<LoginPage> {
         codeSent: (String verificationid, int? token) async {
           String otp = await Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => OTP()));
+          // String otp = "123456";
 
           PhoneAuthCredential credential = PhoneAuthProvider.credential(
               verificationId: verificationid, smsCode: otp);
@@ -122,15 +130,30 @@ class _LoginPageState extends State<LoginPage> {
             });
           }
           var userkey = await getkeyofuser(credentials);
-          var user = await ref.child(userkey).get();
-          var uservalue = user.children.elementAt(0);
-          if (uservalue.key == 'admin' && uservalue.value == true) {
+
+          var data = await ref.child('$userkey').get();
+          var isuser = data.child('admin').value;
+          if (isuser == null) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => userHomepage(
+                  userkey: userkey,
+                ),
+              ),
+            );
+          } else if (isuser == true) {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => admin_Homepage()));
-          } else {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => userHomepage()));
           }
+
+          // var user = await ref.child(userkey).get();
+          // var uservalue = user.children.elementAt(0);
+          // if (uservalue.key == 'admin' && uservalue.value == true) {
+
+          // } else {
+          //
+          // }
         },
         codeAutoRetrievalTimeout: (a) {},
       );
@@ -153,47 +176,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (context) => SimpleDialog(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 25, horizontal: 25),
-              title: Text("Enter Your Name"),
-              children: [
-                TextField(
-                  controller: name_controller,
-                  decoration: textfielddecoration.copyWith(
-                    hintText: "Enter Your Name",
-                    contentPadding: EdgeInsets.symmetric(
-                      vertical: 5,
-                      horizontal: 10,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        if (name_controller.text.length != 0) {
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: Text("Ok"),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          );
-        },
-      ),
       body: Stack(
         children: [
           background(context),

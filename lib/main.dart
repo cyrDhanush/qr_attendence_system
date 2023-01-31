@@ -6,6 +6,7 @@ import 'package:qr_attendence_system/screens/Adminscreens/add_new_class.dart';
 import 'package:qr_attendence_system/screens/Adminscreens/admin_homepage.dart';
 import 'package:qr_attendence_system/screens/Adminscreens/class_page.dart';
 import 'package:qr_attendence_system/screens/Adminscreens/studentlist.dart';
+import 'package:qr_attendence_system/screens/Userscreens/qr_scanning_screen.dart';
 import 'package:qr_attendence_system/screens/Userscreens/userHomepage.dart';
 import 'package:qr_attendence_system/screens/sample.dart';
 import 'package:qr_attendence_system/screens/welcome_page.dart';
@@ -32,14 +33,18 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.white,
         colorSchemeSeed: maincolor,
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          elevation: 7,
+        ),
       ),
       // home: add_newclass(),
-      // home: WelcomePage(),
+      home: WelcomePage(),
       // home: admin_Homepage(),
       // home: classPage(),
       // home: studentList(),
 
-      home: userHomepage(),
+      // home: userHomepage(),
+      // home: qr_scanning(),
 
       // home: addusers(),
     );
