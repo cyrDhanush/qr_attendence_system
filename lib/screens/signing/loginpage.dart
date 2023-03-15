@@ -146,14 +146,6 @@ class _LoginPageState extends State<LoginPage> {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => admin_Homepage()));
           }
-
-          // var user = await ref.child(userkey).get();
-          // var uservalue = user.children.elementAt(0);
-          // if (uservalue.key == 'admin' && uservalue.value == true) {
-
-          // } else {
-          //
-          // }
         },
         codeAutoRetrievalTimeout: (a) {},
       );
@@ -171,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   //demo
-  String passed = "";
+  // String passed = "";
 
   @override
   Widget build(BuildContext context) {
@@ -281,7 +273,6 @@ class _LoginPageState extends State<LoginPage> {
                   // SizedBox(
                   //   height: 50,
                   // ),
-                  Text(passed),
                   Spacer(),
                   ElevatedButton(
                     onLongPress: () {
