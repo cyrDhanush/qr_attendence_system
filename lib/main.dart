@@ -17,8 +17,8 @@ void main() async {
       statusBarColor: Colors.transparent,
     ),
   );
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -40,10 +40,10 @@ class MyApp extends StatelessWidget {
       // home: add_newclass(),
       // home: WelcomePage(),
       // home: admin_Homepage(),
-      // home: classPage(),
+      home: classPage(),
       // home: studentList(),
 
-      home: userHomepage(),
+      // home: userHomepage(),
 
       // home: addusers(),
     );

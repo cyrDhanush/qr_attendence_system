@@ -1,4 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_attendence_system/global.dart';
 import 'package:qr_attendence_system/models/classmodel.dart';
@@ -6,15 +5,15 @@ import 'package:qr_attendence_system/screens/Adminscreens/studentlist.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class classPage extends StatefulWidget {
-  final classmodel classobj;
-  const classPage({Key? key, required this.classobj}) : super(key: key);
+  const classPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<classPage> createState() => _classPageState();
 }
 
 class _classPageState extends State<classPage> {
-  DatabaseReference ref = FirebaseDatabase.instance.ref('classdetails/');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,16 +28,11 @@ class _classPageState extends State<classPage> {
           ),
         ),
         title: Text(
-          // "Class Name",
-          widget.classobj.classname,
+          "Class Name",
         ),
         actions: [
           IconButton(
-            onPressed: () async {
-              await ref.child(widget.classobj.classid).remove();
-              print("deleted");
-              Navigator.pop(context);
-            },
+            onPressed: () async {},
             icon: Icon(
               Icons.delete_outline_rounded,
               color: Colors.red,
@@ -64,7 +58,7 @@ class _classPageState extends State<classPage> {
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.center,
                 child: QrImage(
-                  data: widget.classobj.classid,
+                  data: 'classid',
                   foregroundColor: Colors.black,
                   padding: EdgeInsets.all(10),
                 ),
@@ -74,7 +68,7 @@ class _classPageState extends State<classPage> {
               height: 30,
             ),
             Text(
-              widget.classobj.classdescription,
+              'class descriptoin',
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 14,

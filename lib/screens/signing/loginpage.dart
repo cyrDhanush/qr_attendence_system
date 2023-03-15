@@ -24,40 +24,6 @@ class _LoginPageState extends State<LoginPage> {
     // phoneno_controller.text = '1234567890';
   }
 
-  FirebaseAuth auth = FirebaseAuth.instance;
-  DatabaseReference ref = FirebaseDatabase.instance.ref('userdetails');
-
-  Future checkindatabase(UserCredential userCredential) async {
-    // to check whether the usercredential is in database or not
-
-    var data = await ref.get();
-    List mylist = [];
-    for (var i in data.children) {
-      mylist.add(i);
-    }
-    for (var i in mylist) {
-      if (i.value['userphoneno'] ==
-          userCredential.user!.phoneNumber.toString()) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  Future getkeyofuser(UserCredential userCredential) async {
-    // to get the key of the user
-    var data = await ref.get();
-    List mylist = [];
-    for (var i in data.children) {
-      mylist.add(i);
-    }
-    for (var i in mylist) {
-      if (i.value['userid'] == userCredential.user!.uid) {
-        return (i.key);
-      }
-    }
-  }
-
   Future getname() {
     var a = showDialog(
       context: context,
@@ -96,62 +62,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
     return a;
-  }
-
-  void login() async {
-    try {
-      await auth.verifyPhoneNumber(
-        phoneNumber: '+91' + phoneno_controller.text.toString(),
-        verificationCompleted: (a) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => admin_Homepage()));
-        },
-        verificationFailed: (a) {
-          print(a.toString());
-        },
-        codeSent: (String verificationid, int? token) async {
-          String otp = await Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => OTP()));
-          // String otp = "123456";
-
-          PhoneAuthCredential credential = PhoneAuthProvider.credential(
-              verificationId: verificationid, smsCode: otp);
-
-          var credentials = await auth.signInWithCredential(credential);
-          //check database if user is new or not
-          var isthere = await checkindatabase(credentials);
-          if (isthere == false) {
-            //add data and phone number into database
-            await getname();
-            ref.push().set({
-              'userid': credentials.user!.uid.toString(),
-              'username': name_controller.text,
-              'userphoneno': credentials.user!.phoneNumber.toString(),
-            });
-          }
-          var userkey = await getkeyofuser(credentials);
-
-          var data = await ref.child('$userkey').get();
-          var isuser = data.child('admin').value;
-          if (isuser == null) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => userHomepage(
-                  userkey: userkey,
-                ),
-              ),
-            );
-          } else if (isuser == true) {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => admin_Homepage()));
-          }
-        },
-        codeAutoRetrievalTimeout: (a) {},
-      );
-    } catch (e) {
-      print(e.toString());
-    }
   }
 
   @override
@@ -286,7 +196,6 @@ class _LoginPageState extends State<LoginPage> {
                         try {
                           FocusScope.of(context).unfocus();
                         } catch (e) {}
-                        login();
                       }
                     },
                     style: ElevatedButton.styleFrom(
