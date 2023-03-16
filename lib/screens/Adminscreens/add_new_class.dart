@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_attendence_system/global.dart';
+import 'package:qr_attendence_system/services/adminservices.dart';
 
 class add_newclass extends StatefulWidget {
   const add_newclass({Key? key}) : super(key: key);
@@ -12,7 +13,8 @@ class _add_newclassState extends State<add_newclass> {
   TextEditingController classname = TextEditingController();
   TextEditingController classdes = TextEditingController();
 
-  List data = [];
+  Adminservices adminservices = Adminservices();
+  bool loading = false;
 
   @override
   void dispose() {
@@ -22,13 +24,24 @@ class _add_newclassState extends State<add_newclass> {
     classdes.dispose();
   }
 
-  void submit() async {}
+  void submit() async {
+    setState(() {
+      loading = true;
+    });
+    if (classname.text != '') {
+      await adminservices.addnewclass(classname.text, classdes.text);
+      Navigator.pop(context);
+      print("Success");
+    }
+    setState(() {
+      loading = false;
+    });
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // getdata();
   }
 
   @override
@@ -48,9 +61,11 @@ class _add_newclassState extends State<add_newclass> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {
-              submit();
-            },
+            onPressed: (loading == true)
+                ? (null)
+                : (() {
+                    submit();
+                  }),
             icon: Icon(
               Icons.check,
               color: maincolor,
@@ -108,9 +123,11 @@ class _add_newclassState extends State<add_newclass> {
       ),
       bottomSheet: Container(
         child: TextButton(
-          onPressed: () {
-            submit();
-          },
+          onPressed: (loading == true)
+              ? (null)
+              : (() {
+                  submit();
+                }),
           style: TextButton.styleFrom(
             foregroundColor: Colors.white,
             backgroundColor: maincolor,

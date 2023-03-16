@@ -1,27 +1,55 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class addusers extends StatefulWidget {
-  const addusers({Key? key}) : super(key: key);
+class Success extends StatefulWidget {
+  const Success({Key? key}) : super(key: key);
 
   @override
-  State<addusers> createState() => _addusersState();
+  State<Success> createState() => _SuccessState();
 }
 
-class _addusersState extends State<addusers> {
+class _SuccessState extends State<Success> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Success'),
+      ),
+    );
+  }
+}
+
+class firestoresample extends StatefulWidget {
+  const firestoresample({Key? key}) : super(key: key);
+
+  @override
+  State<firestoresample> createState() => _firestoresampleState();
+}
+
+class _firestoresampleState extends State<firestoresample> {
+  FirebaseFirestore instance = FirebaseFirestore.instance;
+  late CollectionReference userref;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    userref = instance.collection('users');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      floatingActionButton: FloatingActionButton(
+      body: ElevatedButton(
         onPressed: () async {
-          DatabaseReference ref = FirebaseDatabase.instance.ref('userdetails');
-          ref.push().set({
-            'userid': '123456789',
-            'userphoneno': '8903013270',
-            'username': 'dhanush',
+          await userref.doc('thisistheid').set({
+            'name': 'Dhanush',
+            'age': 29,
+          }).then((value) => print('Success'), onError: (e) {
+            print(e.toString());
           });
         },
+        child: Text('data'),
       ),
     );
   }

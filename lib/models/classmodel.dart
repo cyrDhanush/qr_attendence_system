@@ -1,27 +1,17 @@
-// class adminmodel {
-//   List<classmodel> classes = [];
-// }
-//
-// class classmodel {
-//   String classid;
-//   String classname;
-//   String classdescription;
-//   List<studentmodel>? studentlist = [];
-//
-//   classmodel({
-//     this.classid = "",
-//     this.classname = "",
-//     this.classdescription = "",
-//     this.studentlist = const [],
-//   });
-// }
-//
-// class studentmodel {
-//   int studentphoneno;
-//   int studentname;
-//   List<classmodel> joinedclasses = [];
-//   studentmodel(
-//     this.studentphoneno,
-//     this.studentname,
-//   );
-// }
+class Classmodel {
+  final String classkey;
+  final String classname;
+  final String classdescription;
+  final List studentlist;
+
+  Classmodel(
+      this.classkey, this.classname, this.classdescription, this.studentlist);
+}
+
+class iddata {
+  // to store id and data both at single object
+  final String id;
+  final dynamic data;
+
+  iddata(this.id, this.data);
+}

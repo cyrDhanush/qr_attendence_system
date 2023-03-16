@@ -6,14 +6,14 @@ import 'package:qr_attendence_system/screens/Adminscreens/admin_homepage.dart';
 import 'package:qr_attendence_system/screens/Userscreens/userHomepage.dart';
 import 'package:qr_attendence_system/screens/signing/otppage.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class Loginpage extends StatefulWidget {
+  const Loginpage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<Loginpage> createState() => _LoginpageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginpageState extends State<Loginpage> {
   TextEditingController phoneno_controller = TextEditingController();
   TextEditingController name_controller = TextEditingController();
 

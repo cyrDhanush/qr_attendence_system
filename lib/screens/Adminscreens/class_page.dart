@@ -4,16 +4,13 @@ import 'package:qr_attendence_system/models/classmodel.dart';
 import 'package:qr_attendence_system/screens/Adminscreens/studentlist.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class classPage extends StatefulWidget {
+class classPage extends StatelessWidget {
+  final Classmodel classmodel;
   const classPage({
     Key? key,
+    required this.classmodel,
   }) : super(key: key);
 
-  @override
-  State<classPage> createState() => _classPageState();
-}
-
-class _classPageState extends State<classPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +25,8 @@ class _classPageState extends State<classPage> {
           ),
         ),
         title: Text(
-          "Class Name",
+          // "Class Name",
+          classmodel.classname,
         ),
         actions: [
           IconButton(
@@ -58,7 +56,7 @@ class _classPageState extends State<classPage> {
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.center,
                 child: QrImage(
-                  data: 'classid',
+                  data: classmodel.classkey,
                   foregroundColor: Colors.black,
                   padding: EdgeInsets.all(10),
                 ),
@@ -68,7 +66,7 @@ class _classPageState extends State<classPage> {
               height: 30,
             ),
             Text(
-              'class descriptoin',
+              classmodel.classdescription,
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 14,
@@ -110,7 +108,17 @@ class _classPageState extends State<classPage> {
                   ),
                 ],
               ),
-            )
+            ),
+            Spacer(),
+            Text(
+              classmodel.classkey,
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
           ],
         ),
       ),

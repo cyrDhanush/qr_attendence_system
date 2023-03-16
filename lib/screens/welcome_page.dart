@@ -2,7 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:qr_attendence_system/global.dart';
-import 'package:qr_attendence_system/screens/signing/loginpage.dart';
+import 'package:qr_attendence_system/bin/loginpage.dart';
+import 'package:qr_attendence_system/screens/signing/loginwithemail.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);

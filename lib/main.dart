@@ -9,6 +9,7 @@ import 'package:qr_attendence_system/screens/Adminscreens/studentlist.dart';
 import 'package:qr_attendence_system/bin/qr_scanning_screen.dart';
 import 'package:qr_attendence_system/screens/Userscreens/userHomepage.dart';
 import 'package:qr_attendence_system/screens/sample.dart';
+import 'package:qr_attendence_system/screens/signing/loginwithemail.dart';
 import 'package:qr_attendence_system/screens/welcome_page.dart';
 
 void main() async {
@@ -17,8 +18,8 @@ void main() async {
       statusBarColor: Colors.transparent,
     ),
   );
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -33,19 +34,23 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.white,
         colorSchemeSeed: maincolor,
+        appBarTheme: AppBarTheme(
+          scrolledUnderElevation: 7,
+        ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           elevation: 7,
         ),
       ),
       // home: add_newclass(),
       // home: WelcomePage(),
-      // home: admin_Homepage(),
-      home: classPage(),
+      home: admin_Homepage(),
+      // home: LoginPage(),
       // home: studentList(),
 
       // home: userHomepage(),
 
       // home: addusers(),
+      // home: firestoresample(),
     );
   }
 }
