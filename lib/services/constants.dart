@@ -8,3 +8,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 CollectionReference userref = firestore.collection('users');
 CollectionReference classref = firestore.collection('classes');
+
+String demostudentid = '8ckoVyigc1aFCtEyuR0qV0PzbrF2';
+String democlassid = 'EqfDel5uxy5v2H19LxHo';
+// String democlassid = 'YKoQyDEF3XJxnwwqEROT';

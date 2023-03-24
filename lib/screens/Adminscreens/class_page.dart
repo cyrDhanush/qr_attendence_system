@@ -2,15 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:qr_attendence_system/global.dart';
 import 'package:qr_attendence_system/models/classmodel.dart';
 import 'package:qr_attendence_system/screens/Adminscreens/studentlist.dart';
+import 'package:qr_attendence_system/services/adminservices.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class classPage extends StatelessWidget {
+class classPage extends StatefulWidget {
   final Classmodel classmodel;
   const classPage({
     Key? key,
     required this.classmodel,
   }) : super(key: key);
 
+  @override
+  State<classPage> createState() => _classPageState();
+}
+
+class _classPageState extends State<classPage> {
+  Adminservices adminservices = Adminservices();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,11 +33,17 @@ class classPage extends StatelessWidget {
         ),
         title: Text(
           // "Class Name",
-          classmodel.classname,
+          widget.classmodel.classname,
         ),
         actions: [
           IconButton(
-            onPressed: () async {},
+            onPressed: () async {
+              print('delete');
+              await adminservices.deleteclass(
+                classid: widget.classmodel.classkey,
+              );
+              Navigator.pop(context);
+            },
             icon: Icon(
               Icons.delete_outline_rounded,
               color: Colors.red,
@@ -56,7 +69,7 @@ class classPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.center,
                 child: QrImage(
-                  data: classmodel.classkey,
+                  data: widget.classmodel.classkey,
                   foregroundColor: Colors.black,
                   padding: EdgeInsets.all(10),
                 ),
@@ -66,7 +79,7 @@ class classPage extends StatelessWidget {
               height: 30,
             ),
             Text(
-              classmodel.classdescription,
+              widget.classmodel.classdescription,
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 14,
@@ -82,7 +95,9 @@ class classPage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => studentList(),
+                    builder: (context) => studentList(
+                      classmodel: widget.classmodel,
+                    ),
                   ),
                 );
               },
@@ -111,7 +126,7 @@ class classPage extends StatelessWidget {
             ),
             Spacer(),
             Text(
-              classmodel.classkey,
+              widget.classmodel.classkey,
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontSize: 12,

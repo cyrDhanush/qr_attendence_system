@@ -15,10 +15,15 @@ class admin_Homepage extends StatefulWidget {
 
 class _admin_HomepageState extends State<admin_Homepage> {
   Adminservices adminservices = Adminservices();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+  }
+
+  void refreshscreen() {
+    setState(() {});
   }
 
   Future getclassdata() async {
@@ -57,6 +62,7 @@ class _admin_HomepageState extends State<admin_Homepage> {
                 itemBuilder: (context, i) {
                   return classTile(
                     classmodel: snapshot.data[i],
+                    refresh: refreshscreen,
                   );
                 },
               );
@@ -88,15 +94,17 @@ class _admin_HomepageState extends State<admin_Homepage> {
 
 class classTile extends StatelessWidget {
   final Classmodel classmodel;
-  const classTile({Key? key, required this.classmodel}) : super(key: key);
+  final Function? refresh;
+  const classTile({Key? key, required this.classmodel, this.refresh})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 7),
       child: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => classPage(
@@ -104,6 +112,10 @@ class classTile extends StatelessWidget {
               ),
             ),
           );
+          print('hello');
+          if (refresh != null) {
+            refresh!();
+          }
         },
         style: ElevatedButton.styleFrom(
           elevation: 7,

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_attendence_system/global.dart';
 import 'package:qr_attendence_system/screens/Adminscreens/admin_homepage.dart';
+import 'package:qr_attendence_system/screens/Userscreens/userHomepage.dart';
 import 'package:qr_attendence_system/screens/sample.dart';
 import 'package:qr_attendence_system/screens/signing/signup.dart';
 import 'package:qr_attendence_system/services/authentication.dart';
@@ -29,8 +30,24 @@ class _LoginPageState extends State<LoginPage> {
     if (email.text != '' && password.text != '') {
       var result = await _authentication.loginUser(email.text, password.text);
       if (result.runtimeType == UserCredential) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => admin_Homepage()));
+        bool isadmin = await _authentication.checkadmin(result.user!.uid);
+        if (isadmin == true) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => admin_Homepage(),
+            ),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => userHomepage(
+                userkey: result.user!.uid,
+              ),
+            ),
+          );
+        }
       } else if (result.toString().contains('invalid-email')) {
         setState(() {
           errortext = 'Invalid Email Format';

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,9 +9,12 @@ import 'package:qr_attendence_system/screens/Adminscreens/class_page.dart';
 import 'package:qr_attendence_system/screens/Adminscreens/studentlist.dart';
 import 'package:qr_attendence_system/bin/qr_scanning_screen.dart';
 import 'package:qr_attendence_system/screens/Userscreens/userHomepage.dart';
+import 'package:qr_attendence_system/screens/loadingScreen.dart';
 import 'package:qr_attendence_system/screens/sample.dart';
 import 'package:qr_attendence_system/screens/signing/loginwithemail.dart';
 import 'package:qr_attendence_system/screens/welcome_page.dart';
+import 'package:qr_attendence_system/services/constants.dart';
+import 'package:qr_attendence_system/services/userservices.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(
@@ -20,6 +24,8 @@ void main() async {
   );
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  // Userservices us = Userservices();
+  // us.getuserDetails(demostudentid);
   runApp(const MyApp());
 }
 
@@ -43,12 +49,12 @@ class MyApp extends StatelessWidget {
       ),
       // home: add_newclass(),
       // home: WelcomePage(),
-      home: admin_Homepage(),
-      // home: LoginPage(),
+      // home: admin_Homepage(),
+      home: LoginPage(),
       // home: studentList(),
 
       // home: userHomepage(),
-
+      //
       // home: addusers(),
       // home: firestoresample(),
     );

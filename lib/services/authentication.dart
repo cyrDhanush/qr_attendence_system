@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:qr_attendence_system/services/constants.dart';
 
@@ -15,7 +16,7 @@ class Authentication {
       userref.doc(user.user!.uid.toString()).set({
         'name': name,
         'isAdmin': false,
-        'joinedclasses': [],
+        'joinedclasses': {},
       });
     }
     return true;
@@ -30,8 +31,15 @@ class Authentication {
       print(e);
       return e;
     }
-    print(user.user!.uid.toString());
+    // print(user.user!.uid.toString());
+
     return user;
     // print(user);
+  }
+
+  checkadmin(String userid) async {
+    DocumentSnapshot snapshot = await userref.doc(userid).get();
+    bool isAdmin = snapshot.get('isAdmin');
+    return isAdmin;
   }
 }
