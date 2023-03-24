@@ -3,6 +3,7 @@ import 'package:qr_attendence_system/global.dart';
 import 'package:qr_attendence_system/models/classmodel.dart';
 import 'package:qr_attendence_system/screens/Adminscreens/add_new_class.dart';
 import 'package:qr_attendence_system/screens/Adminscreens/class_page.dart';
+import 'package:qr_attendence_system/screens/signing/loginwithemail.dart';
 import 'package:qr_attendence_system/services/adminservices.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -40,7 +41,8 @@ class _admin_HomepageState extends State<admin_Homepage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => LoginPage()));
             },
             icon: Icon(
               Icons.logout_rounded,

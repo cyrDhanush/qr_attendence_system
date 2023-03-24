@@ -8,6 +8,7 @@ import 'package:qr_attendence_system/global.dart';
 import 'package:qr_attendence_system/bin/qr_scanning_screen.dart';
 import 'package:qr_attendence_system/models/classmodel.dart';
 import 'package:qr_attendence_system/screens/loadingScreen.dart';
+import 'package:qr_attendence_system/screens/signing/loginwithemail.dart';
 import 'package:qr_attendence_system/services/constants.dart';
 import 'package:qr_attendence_system/services/userservices.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -226,7 +227,8 @@ class _userHomepageState extends State<userHomepage> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    // Navigator.pop(context);
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
                   },
                   child: Text(
                     "Log Out",

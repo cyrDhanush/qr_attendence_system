@@ -71,7 +71,6 @@ class _studentTileState extends State<studentTile> {
   Future getdata() async {
     Usermodel data = await userservices.getuserDetails(widget.studentkey);
 
-    await Future.delayed(Duration(seconds: 5));
     setState(() {});
     return data;
   }
