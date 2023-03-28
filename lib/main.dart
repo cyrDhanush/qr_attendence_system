@@ -15,6 +15,7 @@ import 'package:qr_attendence_system/screens/signing/loginwithemail.dart';
 import 'package:qr_attendence_system/screens/welcome_page.dart';
 import 'package:qr_attendence_system/services/constants.dart';
 import 'package:qr_attendence_system/services/userservices.dart';
+import 'package:qr_attendence_system/trial_Fingerprint.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(
@@ -51,9 +52,12 @@ class MyApp extends StatelessWidget {
       // home: WelcomePage(),
       // home: admin_Homepage(),
       home: LoginPage(),
+      // home: fingerprint(),
       // home: studentList(),
 
-      // home: userHomepage(),
+      // home: userHomepage(
+      //   userkey: 'XR6aq88D55SQgRb1OSQnImn5OcD2',
+      // ),
       //
       // home: addusers(),
       // home: firestoresample(),

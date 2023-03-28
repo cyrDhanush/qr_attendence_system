@@ -12,6 +12,7 @@ import 'package:qr_attendence_system/screens/signing/loginwithemail.dart';
 import 'package:qr_attendence_system/services/constants.dart';
 import 'package:qr_attendence_system/services/userservices.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:local_auth/local_auth.dart';
 
 class userHomepage extends StatefulWidget {
   final String userkey;
@@ -22,6 +23,7 @@ class userHomepage extends StatefulWidget {
 }
 
 class _userHomepageState extends State<userHomepage> {
+  LocalAuthentication Localauth = LocalAuthentication();
   Userservices userservices = Userservices();
   List<Classmodel?> classDetails = [];
   late Usermodel snapshot;
@@ -31,6 +33,22 @@ class _userHomepageState extends State<userHomepage> {
     // TODO: implement initState
     super.initState();
     update();
+  }
+
+  Future<bool> authenticate() async {
+    bool check = await Localauth.canCheckBiometrics;
+    if (check == true) {
+      bool isauthenticated = await Localauth.authenticate(
+        localizedReason: 'Authenticate to Join Class',
+        options: AuthenticationOptions(
+          biometricOnly: true,
+          stickyAuth: true,
+          sensitiveTransaction: true,
+        ),
+      );
+      return isauthenticated;
+    }
+    return false;
   }
 
   update() async {
@@ -124,14 +142,20 @@ class _userHomepageState extends State<userHomepage> {
                 ),
                 TextButton(
                   onPressed: () async {
-                    await userservices.joinclass(
-                      classid: classid,
-                      userid: userid,
-                    );
-                    // await userservices.removefromclass(
-                    //     democlassid, demostudentid);
-                    print('joined in a class');
-                    Navigator.pop(context);
+                    bool isAuthenticated = await authenticate();
+                    if (isAuthenticated == true) {
+                      await userservices.joinclass(
+                        classid: classid,
+                        userid: userid,
+                      );
+
+                      print('joined in a class');
+                      Navigator.pop(context);
+                    } else {
+                      print('Not Joined');
+                    }
+
+                    print('clicked');
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: maincolor,

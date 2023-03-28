@@ -126,7 +126,7 @@ class _signUpState extends State<signUp> {
                       Row(),
                       Container(
                         child: Icon(
-                          Icons.car_crash_rounded,
+                          Icons.qr_code_2_outlined,
                           color: Colors.redAccent,
                           size: 100,
                         ),
@@ -135,7 +135,7 @@ class _signUpState extends State<signUp> {
                         height: 10,
                       ),
                       Text(
-                        "VehiCare",
+                        "QR Attendance",
                         style: TextStyle(
                           color: maincolor,
                           fontWeight: FontWeight.bold,

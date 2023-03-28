@@ -169,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
                           height: 10,
                         ),
                         Text(
-                          "QR Code Scanner",
+                          "QR Attendance",
                           style: TextStyle(
                             color: maincolor,
                             fontWeight: FontWeight.bold,
