@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_attendence_system/global.dart';
 import 'package:qr_attendence_system/models/classmodel.dart';
+import 'package:qr_attendence_system/services/adminservices.dart';
 import 'package:qr_attendence_system/services/userservices.dart';
 
 class studentList extends StatefulWidget {
@@ -13,6 +14,7 @@ class studentList extends StatefulWidget {
 }
 
 class _studentListState extends State<studentList> {
+  Adminservices adminservices = Adminservices();
   late Map joinedusers;
   @override
   void initState() {
@@ -20,7 +22,6 @@ class _studentListState extends State<studentList> {
     super.initState();
     print('happened');
     joinedusers = widget.classmodel.joinedusers;
-    joinedusers.removeWhere((key, value) => value == null);
   }
 
   @override
@@ -41,17 +42,50 @@ class _studentListState extends State<studentList> {
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
-        child: Column(
-          children: [
-            // studentTile(),
-            // studentTile(),
-            // studentTile(),
-            // studentTile(),
-            for (String i in joinedusers.keys)
-              studentTile(
-                studentkey: i,
-              ),
-          ],
+        // child: Column(
+        //   children: [
+        //     for (String i in joinedusers.keys)
+        //       studentTile(
+        //         studentkey: i,
+        //       ),
+        //   ],
+        // ),
+        child: StreamBuilder(
+          stream: adminservices.getStreamofjoinedusers(
+              classkey: widget.classmodel.classkey),
+          builder: (context, snapshot) {
+            if (snapshot.hasData &&
+                snapshot.data!.get('joinedusers').keys.length != 0) {
+              return ListView.builder(
+                  itemCount: snapshot.data!.get('joinedusers').keys.length,
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (context, i) {
+                    return studentTile(
+                      studentkey: snapshot.data!
+                          .get('joinedusers')
+                          .keys
+                          .toList()[i]
+                          .toString(),
+                    );
+                  });
+            } else if (snapshot.hasData &&
+                snapshot.data!.get('joinedusers').keys.length == 0) {
+              return Center(
+                child: Text(
+                  'No Users Joined Yet!',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              );
+            } else {
+              return CircularProgressIndicator();
+            }
+            // return Container(
+            //   child: Text(snapshot.data!.get('joinedusers').keys.toString()),
+            // );
+          },
         ),
       ),
     );

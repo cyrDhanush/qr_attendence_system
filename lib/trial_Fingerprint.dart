@@ -22,11 +22,13 @@ class _fingerprintState extends State<fingerprint> {
       body: Center(
         child: ElevatedButton(
           onPressed: () async {
-            // loadingBlock(
-            //   context: context,
-            // );
+            loadingBlock(
+              context: context,
+            );
+            print('Started');
             await Future.delayed(Duration(seconds: 5));
-            // Navigator.pop(context);
+            print('ended');
+            Navigator.pop(context);
           },
           child: Text('Finger Print'),
         ),

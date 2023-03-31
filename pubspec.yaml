@@ -43,6 +43,7 @@ dependencies:
   qr_flutter: ^4.0.0
   flutter_barcode_scanner: ^2.0.0
   local_auth: ^2.1.6
+  shared_preferences: ^2.0.20
 #  qr_code_scanner:
 
 

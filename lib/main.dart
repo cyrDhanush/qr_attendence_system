@@ -51,9 +51,11 @@ class MyApp extends StatelessWidget {
       // home: add_newclass(),
       // home: WelcomePage(),
       // home: admin_Homepage(),
-      home: LoginPage(),
+      // home: fingerprint(),
+      // home: qr_scanning(),
       // home: fingerprint(),
       // home: studentList(),
+      home: LoginPage(),
 
       // home: userHomepage(
       //   userkey: 'XR6aq88D55SQgRb1OSQnImn5OcD2',

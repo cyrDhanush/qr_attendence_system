@@ -8,8 +8,10 @@ import 'package:qr_attendence_system/global.dart';
 import 'package:qr_attendence_system/bin/qr_scanning_screen.dart';
 import 'package:qr_attendence_system/models/classmodel.dart';
 import 'package:qr_attendence_system/screens/loadingScreen.dart';
+import 'package:qr_attendence_system/screens/loadingblock.dart';
 import 'package:qr_attendence_system/screens/signing/loginwithemail.dart';
 import 'package:qr_attendence_system/services/constants.dart';
+import 'package:qr_attendence_system/services/localauthentication.dart';
 import 'package:qr_attendence_system/services/userservices.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:local_auth/local_auth.dart';
@@ -23,8 +25,8 @@ class userHomepage extends StatefulWidget {
 }
 
 class _userHomepageState extends State<userHomepage> {
-  LocalAuthentication Localauth = LocalAuthentication();
   Userservices userservices = Userservices();
+  localAuthentication authentication = localAuthentication();
   List<Classmodel?> classDetails = [];
   late Usermodel snapshot;
   bool preloading = true;
@@ -33,22 +35,6 @@ class _userHomepageState extends State<userHomepage> {
     // TODO: implement initState
     super.initState();
     update();
-  }
-
-  Future<bool> authenticate() async {
-    bool check = await Localauth.canCheckBiometrics;
-    if (check == true) {
-      bool isauthenticated = await Localauth.authenticate(
-        localizedReason: 'Authenticate to Join Class',
-        options: AuthenticationOptions(
-          biometricOnly: true,
-          stickyAuth: true,
-          sensitiveTransaction: true,
-        ),
-      );
-      return isauthenticated;
-    }
-    return false;
   }
 
   update() async {
@@ -142,14 +128,18 @@ class _userHomepageState extends State<userHomepage> {
                 ),
                 TextButton(
                   onPressed: () async {
-                    bool isAuthenticated = await authenticate();
+                    bool isAuthenticated = await authentication.authenticate(
+                        reason: 'Please Authenticate to Join a Class');
+                    // bool isAuthenticated = true;
                     if (isAuthenticated == true) {
+                      loadingBlock(context: context);
                       await userservices.joinclass(
                         classid: classid,
                         userid: userid,
                       );
 
                       print('joined in a class');
+                      Navigator.pop(context);
                       Navigator.pop(context);
                     } else {
                       print('Not Joined');
@@ -180,10 +170,6 @@ class _userHomepageState extends State<userHomepage> {
         ),
       ),
     );
-
-    // },
-    // ),
-    // );
   }
 
   incorrect_code() {
@@ -264,26 +250,38 @@ class _userHomepageState extends State<userHomepage> {
               ],
             ),
             body: Container(
-              child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                padding: EdgeInsets.only(bottom: 100, top: 10),
-                itemCount: classDetails.length,
-                itemBuilder: (context, i) {
-                  return classCard(
-                    classid: classDetails[i]!.classkey,
-                    userid: widget.userkey,
-                    classname: classDetails[i]!.classname,
-                    update: update,
-                  );
-                },
-              ),
+              child: (classDetails.length != 0)
+                  ? (ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      padding: EdgeInsets.only(bottom: 100, top: 10),
+                      itemCount: classDetails.length,
+                      itemBuilder: (context, i) {
+                        return classCard(
+                          classid: classDetails[i]!.classkey,
+                          userid: widget.userkey,
+                          classname: classDetails[i]!.classname,
+                          classdescription: classDetails[i]!.classdescription,
+                          update: update,
+                        );
+                      },
+                    ))
+                  : (Center(
+                      child: Text(
+                        "Scan QR code to Join a Class",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.black.withAlpha(150),
+                        ),
+                      ),
+                    )),
             ),
             floatingActionButton: FloatingActionButton.extended(
               onPressed: () async {
                 var scannedcode = await FlutterBarcodeScanner.scanBarcode(
                     '#783F8E', "Cancel", false, ScanMode.QR);
                 // var scannedcode = democlassid;
-                if (scannedcode != null) {
+                if (scannedcode != null && scannedcode != -1) {
                   DocumentSnapshot classdetails =
                       await userservices.getclassdetail(scannedcode);
                   if (classdetails.data() != null) {
@@ -300,7 +298,6 @@ class _userHomepageState extends State<userHomepage> {
                     incorrect_code();
                   }
                 }
-                // userservices.getuserDetails(demostudentid);
               },
               icon: Icon(Icons.qr_code_scanner_rounded),
               label: Text("Scan QR Code"),
@@ -313,10 +310,12 @@ class classCard extends StatefulWidget {
   final String classid;
   final String userid;
   final String classname;
+  final String classdescription;
   final Function update;
   const classCard({
     Key? key,
     required this.classid,
+    required this.classdescription,
     required this.userid,
     this.classname = '',
     required this.update,
@@ -365,8 +364,7 @@ class _classCardState extends State<classCard> {
                       height: 10,
                     ),
                     Text(
-                      // 'Descripton is not provided',
-                      'classdescription',
+                      widget.classdescription,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -379,9 +377,12 @@ class _classCardState extends State<classCard> {
               ),
               IconButton(
                 onPressed: () async {
+                  loadingBlock(context: context); // opening loading dialog
                   await userservices.removefromclass(
                       classid: widget.classid, userid: widget.userid);
                   widget.update();
+                  Navigator.pop(context); // popping loading dialog
+
                   print('removed');
                 },
                 icon: Icon(

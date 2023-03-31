@@ -44,9 +44,11 @@ class _admin_HomepageState extends State<admin_Homepage> {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => LoginPage()));
             },
-            icon: Icon(
-              Icons.logout_rounded,
-              color: maincolor,
+            icon: Text(
+              "Log Out",
+              style: TextStyle(
+                color: Colors.red,
+              ),
             ),
           ),
         ],
@@ -56,7 +58,7 @@ class _admin_HomepageState extends State<admin_Homepage> {
         child: FutureBuilder(
           future: getclassdata(),
           builder: ((context, snapshot) {
-            if (snapshot.hasData) {
+            if (snapshot.hasData && snapshot.data?.length != 0) {
               return ListView.builder(
                 itemCount: snapshot.data?.length,
                 physics: BouncingScrollPhysics(),
@@ -67,6 +69,17 @@ class _admin_HomepageState extends State<admin_Homepage> {
                     refresh: refreshscreen,
                   );
                 },
+              );
+            } else if (snapshot.hasData && snapshot.data?.length == 0) {
+              return Center(
+                child: Text(
+                  "Add a New Class",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black.withAlpha(150),
+                  ),
+                ),
               );
             } else {
               return Center(

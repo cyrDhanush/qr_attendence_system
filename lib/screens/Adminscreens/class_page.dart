@@ -18,6 +18,47 @@ class classPage extends StatefulWidget {
 
 class _classPageState extends State<classPage> {
   Adminservices adminservices = Adminservices();
+  confirmdelete() async {
+    await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            contentPadding: EdgeInsets.all(25),
+            icon: Icon(
+              Icons.delete_outline_rounded,
+              color: Colors.red,
+            ),
+            title: Text('Delete'),
+            content: Text(
+              'Do you want to Delete this Class',
+              textAlign: TextAlign.center,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Cancel'),
+              ),
+              FilledButton(
+                onPressed: () async {
+                  await adminservices.deleteclass(
+                    classid: widget.classmodel.classkey,
+                  );
+                  Navigator.pop(context); // to pop alert dialog
+                  Navigator.pop(context); // to pop the screen
+                },
+                style: FilledButton.styleFrom(
+                  backgroundColor: Colors.red,
+                ),
+                child: Text('Delete'),
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,12 +78,8 @@ class _classPageState extends State<classPage> {
         ),
         actions: [
           IconButton(
-            onPressed: () async {
-              print('delete');
-              await adminservices.deleteclass(
-                classid: widget.classmodel.classkey,
-              );
-              Navigator.pop(context);
+            onPressed: () {
+              confirmdelete();
             },
             icon: Icon(
               Icons.delete_outline_rounded,

@@ -6,6 +6,8 @@ import 'package:qr_attendence_system/screens/Userscreens/userHomepage.dart';
 import 'package:qr_attendence_system/screens/sample.dart';
 import 'package:qr_attendence_system/screens/signing/signup.dart';
 import 'package:qr_attendence_system/services/authentication.dart';
+import 'package:qr_attendence_system/services/localauthentication.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,21 +17,41 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
   Authentication _authentication = Authentication();
+  localAuthentication localauth = localAuthentication();
+  late SharedPreferences prefs;
+  String? prefemail;
+  String? prefpassword;
 
   String errortext = '';
   bool obscurepassword = true;
   bool loading = false;
+  bool remember = true;
 
-  login() async {
+  login({bool localauth = false}) async {
+    String email, password;
     setState(() {
       loading = true;
     });
-    if (email.text != '' && password.text != '') {
-      var result = await _authentication.loginUser(email.text, password.text);
+    if (localauth == true) {
+      email = prefemail!;
+      password = prefpassword!;
+    } else {
+      email = emailcontroller.text;
+      password = passwordcontroller.text;
+    }
+    if (email != '' && password != '') {
+      var result = await _authentication.loginUser(email, password);
       if (result.runtimeType == UserCredential) {
+        // credentials are correct
+        // storing into local storage
+        if (remember == true) {
+          prefs = await SharedPreferences.getInstance();
+          await prefs.setString('username', email);
+          await prefs.setString('password', password);
+        }
         bool isadmin = await _authentication.checkadmin(result.user!.uid);
         if (isadmin == true) {
           Navigator.pushReplacement(
@@ -50,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
         }
       } else if (result.toString().contains('invalid-email')) {
         setState(() {
-          errortext = 'Invalid Email Format';
+          errortext = 'Invalid email Format';
         });
       } else if (result.toString().contains('user-not-found')) {
         showDialog(
@@ -119,6 +141,27 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  getpreferences() async {
+    prefs = await SharedPreferences.getInstance();
+    prefemail = prefs.getString('username');
+    prefpassword = prefs.getString('password');
+    setState(() {});
+  }
+
+  clearstoredlogin() async {
+    prefs = await SharedPreferences.getInstance();
+    await prefs.remove('username');
+    await prefs.remove('password');
+    getpreferences();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getpreferences();
+  }
+
   bool rem = true;
   @override
   Widget build(BuildContext context) {
@@ -182,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                         Container(
                           height: 60,
                           child: TextField(
-                            controller: email,
+                            controller: emailcontroller,
                             style: TextStyle(
                               fontSize: 18,
                             ),
@@ -218,7 +261,7 @@ class _LoginPageState extends State<LoginPage> {
                               child: Container(
                                 height: 60,
                                 child: TextField(
-                                  controller: password,
+                                  controller: passwordcontroller,
                                   style: TextStyle(
                                     fontSize: 18,
                                   ),
@@ -268,27 +311,27 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         Row(
                           children: [
-                            GestureDetector(
-                              onTap: () {
+                            TextButton(
+                              onPressed: () {
                                 setState(() {
-                                  rem = !rem;
+                                  remember =
+                                      (remember == true) ? (false) : (true);
                                 });
                               },
+                              style: TextButton.styleFrom(
+                                padding: EdgeInsets.only(right: 15),
+                              ),
                               child: Row(
                                 children: [
                                   Checkbox(
-                                    value: rem,
+                                    value: remember,
                                     shape: CircleBorder(),
                                     activeColor: maincolor,
                                     checkColor: Colors.white,
-                                    onChanged: (res) {
-                                      setState(() {
-                                        rem = res!;
-                                      });
-                                    },
+                                    onChanged: (res) {},
                                   ),
                                   Text(
-                                    'Remember me',
+                                    'Remember Me',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 12,
@@ -311,7 +354,52 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 10,
+                        ),
+                        Visibility(
+                          visible: (prefemail != null) ? (true) : (false),
+                          child: Container(
+                            height: 35,
+                            child: OutlinedButton(
+                              onPressed: () async {
+                                bool result = await localauth.authenticate(
+                                    reason: 'Please Authenticate to Login');
+                                if (result == true) {
+                                  print(prefpassword);
+                                  login(localauth: true);
+                                }
+                              },
+                              style: OutlinedButton.styleFrom(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 15,
+                                  vertical: 0,
+                                ),
+                              ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Login as ' + prefemail.toString() + ' ?',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  IconButton(
+                                    onPressed: () {
+                                      clearstoredlogin();
+                                    },
+                                    icon: Icon(
+                                      Icons.close,
+                                      size: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
                         ),
                         TextButton(
                           onPressed: (loading == true)

@@ -18,6 +18,13 @@ class Adminservices {
     }
   }
 
+  Stream<DocumentSnapshot> getStreamofjoinedusers({required classkey}) {
+    Stream<DocumentSnapshot> stream = classref.doc(classkey).snapshots();
+    // var stream = classref.doc(classkey).snapshots();
+    // DocumentSnapshot documentSnapshot = await classref.doc(classkey).get();
+    return stream;
+  }
+
   Future getallclasses() async {
     QuerySnapshot snapshot = await classref.get();
     List s = snapshot.docs.map((e) => iddata(e.id, e.data())).toList();
