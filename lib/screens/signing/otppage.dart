@@ -15,13 +15,13 @@ class _OTPState extends State<OTP> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Enter OTP"),
+        title: const Text("Enter OTP"),
         centerTitle: true,
       ),
       body: Container(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Container(
@@ -34,16 +34,16 @@ class _OTPState extends State<OTP> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text("Change Phone Number ??"),
+              child: const Text("Change Phone Number ??"),
             ),
-            Spacer(),
+            const Spacer(),
             Column(
               children: [
                 Row(
@@ -85,7 +85,7 @@ class _OTPState extends State<OTP> {
   Widget otpcontainer(String i) {
     return Container(
       height: 60,
-      margin: EdgeInsets.symmetric(horizontal: 3),
+      margin: const EdgeInsets.symmetric(horizontal: 3),
       width: MediaQuery.of(context).size.width / 8,
       alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -94,7 +94,7 @@ class _OTPState extends State<OTP> {
       ),
       child: Text(
         i,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
@@ -121,7 +121,7 @@ class _OTPState extends State<OTP> {
         child: Container(
           height: 50,
           alignment: Alignment.center,
-          child: Icon(Icons.backspace_rounded),
+          child: const Icon(Icons.backspace_rounded),
         ),
       ),
     );
@@ -139,7 +139,7 @@ class _OTPState extends State<OTP> {
         child: Container(
           height: 50,
           alignment: Alignment.center,
-          child: Icon(Icons.check_circle_rounded),
+          child: const Icon(Icons.check_circle_rounded),
         ),
       ),
     );
@@ -161,7 +161,7 @@ class _OTPState extends State<OTP> {
           alignment: Alignment.center,
           child: Text(
             id,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 30,
             ),
           ),

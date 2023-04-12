@@ -24,13 +24,13 @@ class _classPageState extends State<classPage> {
         barrierDismissible: false,
         builder: (context) {
           return AlertDialog(
-            contentPadding: EdgeInsets.all(25),
-            icon: Icon(
+            contentPadding: const EdgeInsets.all(25),
+            icon: const Icon(
               Icons.delete_outline_rounded,
               color: Colors.red,
             ),
-            title: Text('Delete'),
-            content: Text(
+            title: const Text('Delete'),
+            content: const Text(
               'Do you want to Delete this Class',
               textAlign: TextAlign.center,
             ),
@@ -39,7 +39,7 @@ class _classPageState extends State<classPage> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
               ),
               FilledButton(
                 onPressed: () async {
@@ -52,7 +52,7 @@ class _classPageState extends State<classPage> {
                 style: FilledButton.styleFrom(
                   backgroundColor: Colors.red,
                 ),
-                child: Text('Delete'),
+                child: const Text('Delete'),
               ),
             ],
           );
@@ -81,7 +81,7 @@ class _classPageState extends State<classPage> {
             onPressed: () {
               confirmdelete();
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.delete_outline_rounded,
               color: Colors.red,
             ),
@@ -90,10 +90,10 @@ class _classPageState extends State<classPage> {
         centerTitle: true,
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Card(
@@ -108,23 +108,23 @@ class _classPageState extends State<classPage> {
                 child: QrImage(
                   data: widget.classmodel.classkey,
                   foregroundColor: Colors.black,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Text(
               widget.classmodel.classdescription,
               textAlign: TextAlign.justify,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             ElevatedButton(
@@ -140,7 +140,8 @@ class _classPageState extends State<classPage> {
               },
               style: ElevatedButton.styleFrom(
                 elevation: 7,
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
@@ -148,24 +149,24 @@ class _classPageState extends State<classPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Student List",
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.navigate_next_rounded,
                     size: 30,
                   ),
                 ],
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Text(
               widget.classmodel.classkey,
               textAlign: TextAlign.start,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,

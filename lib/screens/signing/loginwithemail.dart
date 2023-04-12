@@ -43,7 +43,9 @@ class _LoginPageState extends State<LoginPage> {
       password = passwordcontroller.text;
     }
     if (email != '' && password != '') {
+      print('started');
       var result = await _authentication.loginUser(email, password);
+      print('logging in');
       if (result.runtimeType == UserCredential) {
         // credentials are correct
         // storing into local storage
@@ -57,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => admin_Homepage(),
+              builder: (context) => const admin_Homepage(),
             ),
           );
         } else {
@@ -78,15 +80,15 @@ class _LoginPageState extends State<LoginPage> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            contentPadding: EdgeInsets.all(50),
-            title: Text(
+            contentPadding: const EdgeInsets.all(50),
+            title: const Text(
               'User not Found',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
             ),
-            content: Text(
+            content: const Text(
               "Do you Want to SIGNUP ??",
               style: TextStyle(
                 fontSize: 18,
@@ -98,24 +100,24 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.pop(context);
                 },
                 style: TextButton.styleFrom(),
-                child: Text(
+                child: const Text(
                   "Cancel",
                   style: TextStyle(),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               OutlinedButton(
                 onPressed: () {
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => signUp()));
+                      MaterialPageRoute(builder: (context) => const signUp()));
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: maincolor,
                   foregroundColor: Colors.white,
                 ),
-                child: Text(
+                child: const Text(
                   "Sign Up",
                   style: TextStyle(
                     color: Colors.white,
@@ -168,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             children: [
               Row(
@@ -176,10 +178,12 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => signUp()));
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const signUp()));
                     },
-                    child: Text(
+                    child: const Text(
                       "Sign Up",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -190,25 +194,25 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Expanded(
                 child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   child: Container(
                     // height: MediaQuery.of(context).size.height,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 50,
                         ),
                         Row(),
                         Container(
-                          child: Icon(
+                          child: const Icon(
                             Icons.qr_code_2_outlined,
                             color: Colors.redAccent,
                             size: 100,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
@@ -219,19 +223,19 @@ class _LoginPageState extends State<LoginPage> {
                             fontSize: 35,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         Container(
                           height: 60,
                           child: TextField(
                             controller: emailcontroller,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 18,
                             ),
                             decoration: InputDecoration(
                               hintText: 'Email',
-                              hintStyle: TextStyle(
+                              hintStyle: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 18,
                               ),
@@ -252,7 +256,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Row(
@@ -262,14 +266,14 @@ class _LoginPageState extends State<LoginPage> {
                                 height: 60,
                                 child: TextField(
                                   controller: passwordcontroller,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 18,
                                   ),
                                   obscureText: obscurepassword,
                                   obscuringCharacter: '*',
                                   decoration: InputDecoration(
                                     hintText: 'Password',
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 18,
                                     ),
@@ -291,7 +295,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             IconButton(
@@ -301,12 +305,12 @@ class _LoginPageState extends State<LoginPage> {
                                 });
                               },
                               icon: (obscurepassword)
-                                  ? (Icon(Icons.visibility_outlined))
-                                  : (Icon(Icons.visibility_off_outlined)),
+                                  ? (const Icon(Icons.visibility_outlined))
+                                  : (const Icon(Icons.visibility_off_outlined)),
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Row(
@@ -319,18 +323,18 @@ class _LoginPageState extends State<LoginPage> {
                                 });
                               },
                               style: TextButton.styleFrom(
-                                padding: EdgeInsets.only(right: 15),
+                                padding: const EdgeInsets.only(right: 15),
                               ),
                               child: Row(
                                 children: [
                                   Checkbox(
                                     value: remember,
-                                    shape: CircleBorder(),
+                                    shape: const CircleBorder(),
                                     activeColor: maincolor,
                                     checkColor: Colors.white,
                                     onChanged: (res) {},
                                   ),
-                                  Text(
+                                  const Text(
                                     'Remember Me',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -340,7 +344,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ],
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             TextButton(
                               onPressed: () {},
                               child: Text(
@@ -353,7 +357,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Visibility(
@@ -370,7 +374,7 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               },
                               style: OutlinedButton.styleFrom(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                   horizontal: 15,
                                   vertical: 0,
                                 ),
@@ -379,16 +383,16 @@ class _LoginPageState extends State<LoginPage> {
                                 children: [
                                   Text(
                                     'Login as ' + prefemail.toString() + ' ?',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     ),
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   IconButton(
                                     onPressed: () {
                                       clearstoredlogin();
                                     },
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.close,
                                       size: 20,
                                     ),
@@ -398,7 +402,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         TextButton(
@@ -420,13 +424,13 @@ class _LoginPageState extends State<LoginPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               (loading == true)
-                                  ? (CircularProgressIndicator(
+                                  ? (const CircularProgressIndicator(
                                       color: Colors.white,
                                     ))
                                   : (Container(
                                       height: 60,
                                       alignment: Alignment.center,
-                                      child: Text(
+                                      child: const Text(
                                         "Log in",
                                         style: TextStyle(
                                           color: Colors.white,
@@ -437,12 +441,12 @@ class _LoginPageState extends State<LoginPage> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 50,
                         ),
                         Text(
                           errortext,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.red,
                             fontWeight: FontWeight.bold,
                           ),

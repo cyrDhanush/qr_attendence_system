@@ -57,7 +57,7 @@ class _add_newclassState extends State<add_newclass> {
             color: maincolor,
           ),
         ),
-        title: Text("Add New Class"),
+        title: const Text("Add New Class"),
         centerTitle: true,
         actions: [
           IconButton(
@@ -74,21 +74,21 @@ class _add_newclassState extends State<add_newclass> {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
-            Text(
+            const Text(
               "Class Name",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Flexible(
@@ -98,17 +98,17 @@ class _add_newclassState extends State<add_newclass> {
                     hintText: "Class Name (Mandatory)"),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            Text(
+            const Text(
               "Class Description",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Flexible(
@@ -139,7 +139,7 @@ class _add_newclassState extends State<add_newclass> {
             height: 50,
             alignment: Alignment.center,
             width: MediaQuery.of(context).size.width,
-            child: Text(
+            child: const Text(
               "Submit",
               style: TextStyle(
                 fontSize: 20,

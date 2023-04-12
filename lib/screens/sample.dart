@@ -13,7 +13,7 @@ class _SuccessState extends State<Success> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Success'),
+        title: const Text('Success'),
       ),
     );
   }
@@ -49,7 +49,7 @@ class _firestoresampleState extends State<firestoresample> {
             print(e.toString());
           });
         },
-        child: Text('data'),
+        child: const Text('data'),
       ),
     );
   }

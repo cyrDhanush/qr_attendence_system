@@ -47,15 +47,15 @@ class _signUpState extends State<signUp> {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: Text('Sign Up Successfull'),
-        content: Text('You can Login Now'),
-        contentPadding: EdgeInsets.all(30),
+        title: const Text('Sign Up Successfull'),
+        content: const Text('You can Login Now'),
+        contentPadding: const EdgeInsets.all(30),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text('Go to Login Page'),
+            child: const Text('Go to Login Page'),
           ),
         ],
       ),
@@ -73,7 +73,7 @@ class _signUpState extends State<signUp> {
       await showSuccess();
 
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginPage()));
+          context, MaterialPageRoute(builder: (context) => const LoginPage()));
     } else if (result.toString().contains('email-already-in-use')) {
       setState(() {
         errortext = 'Email Already in Use\nTry Logging in';
@@ -93,17 +93,19 @@ class _signUpState extends State<signUp> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
                   onPressed: () async {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()));
                   },
-                  child: Text(
+                  child: const Text(
                     "Login",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -114,24 +116,24 @@ class _signUpState extends State<signUp> {
             ),
             Expanded(
               child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 child: Container(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
                       Row(),
                       Container(
-                        child: Icon(
+                        child: const Icon(
                           Icons.qr_code_2_outlined,
                           color: Colors.redAccent,
                           size: 100,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
@@ -142,19 +144,19 @@ class _signUpState extends State<signUp> {
                           fontSize: 35,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       Container(
                         height: 60,
                         child: TextField(
                           controller: name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                           ),
                           decoration: InputDecoration(
                             hintText: 'Name',
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                               color: Colors.grey,
                               fontSize: 18,
                             ),
@@ -175,19 +177,19 @@ class _signUpState extends State<signUp> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Container(
                         height: 60,
                         child: TextField(
                           controller: email,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                           ),
                           decoration: InputDecoration(
                             hintText: 'Email',
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                               color: Colors.grey,
                               fontSize: 18,
                             ),
@@ -208,7 +210,7 @@ class _signUpState extends State<signUp> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
@@ -218,14 +220,14 @@ class _signUpState extends State<signUp> {
                               height: 60,
                               child: TextField(
                                 controller: password,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 18,
                                 ),
                                 obscureText: obscurepassword,
                                 obscuringCharacter: '*',
                                 decoration: InputDecoration(
                                   hintText: 'Password',
-                                  hintStyle: TextStyle(
+                                  hintStyle: const TextStyle(
                                     color: Colors.grey,
                                     fontSize: 18,
                                   ),
@@ -247,7 +249,7 @@ class _signUpState extends State<signUp> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           IconButton(
@@ -257,15 +259,15 @@ class _signUpState extends State<signUp> {
                               });
                             },
                             icon: (obscurepassword)
-                                ? (Icon(Icons.visibility_outlined))
-                                : (Icon(Icons.visibility_off_outlined)),
+                                ? (const Icon(Icons.visibility_outlined))
+                                : (const Icon(Icons.visibility_off_outlined)),
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       TextButton(
@@ -290,15 +292,16 @@ class _signUpState extends State<signUp> {
                           children: [
                             (loading == true)
                                 ? Container(
-                                    padding: EdgeInsets.symmetric(vertical: 10),
-                                    child: (CircularProgressIndicator(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
+                                    child: (const CircularProgressIndicator(
                                       color: Colors.white,
                                     )),
                                   )
                                 : (Container(
                                     height: 60,
                                     alignment: Alignment.center,
-                                    child: Text(
+                                    child: const Text(
                                       "Sign Up",
                                       style: TextStyle(
                                         color: Colors.white,
@@ -309,12 +312,12 @@ class _signUpState extends State<signUp> {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
                       Text(
                         errortext,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.bold,
                         ),

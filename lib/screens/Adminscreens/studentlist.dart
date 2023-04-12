@@ -37,11 +37,11 @@ class _studentListState extends State<studentList> {
             color: maincolor,
           ),
         ),
-        title: Text("Joined Users List"),
+        title: const Text("Joined Users List"),
         centerTitle: true,
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         // child: Column(
         //   children: [
         //     for (String i in joinedusers.keys)
@@ -58,7 +58,7 @@ class _studentListState extends State<studentList> {
                 snapshot.data!.get('joinedusers').keys.length != 0) {
               return ListView.builder(
                   itemCount: snapshot.data!.get('joinedusers').keys.length,
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, i) {
                     return studentTile(
                       studentkey: snapshot.data!
@@ -70,7 +70,7 @@ class _studentListState extends State<studentList> {
                   });
             } else if (snapshot.hasData &&
                 snapshot.data!.get('joinedusers').keys.length == 0) {
-              return Center(
+              return const Center(
                 child: Text(
                   'No Users Joined Yet!',
                   style: TextStyle(
@@ -80,7 +80,7 @@ class _studentListState extends State<studentList> {
                 ),
               );
             } else {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             }
             // return Container(
             //   child: Text(snapshot.data!.get('joinedusers').keys.toString()),
@@ -119,7 +119,7 @@ class _studentTileState extends State<studentTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 5),
+      margin: const EdgeInsets.symmetric(vertical: 5),
       child: Card(
         elevation: 7,
         shape: RoundedRectangleBorder(
@@ -127,7 +127,7 @@ class _studentTileState extends State<studentTile> {
         ),
         child: Container(
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           child: FutureBuilder(
             future: getdata(),
             builder: (context, snapshot) {
@@ -150,7 +150,7 @@ class _studentTileState extends State<studentTile> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(
@@ -160,18 +160,18 @@ class _studentTileState extends State<studentTile> {
                           Text(
                             // "Student Name",
                             snapshot.data.username.toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(
                             // "Student ID: ",
                             snapshot.data.userkey.toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
@@ -183,7 +183,7 @@ class _studentTileState extends State<studentTile> {
                 );
               } else {
                 return Container(
-                  padding: EdgeInsets.symmetric(vertical: 37.5),
+                  padding: const EdgeInsets.symmetric(vertical: 37.5),
                   child: Container(
                     width: 50,
                     height: 5,

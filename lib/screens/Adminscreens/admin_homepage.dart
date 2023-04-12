@@ -28,7 +28,6 @@ class _admin_HomepageState extends State<admin_Homepage> {
   }
 
   Future getclassdata() async {
-    setState(() {});
     return await adminservices.getallclasses();
   }
 
@@ -37,14 +36,14 @@ class _admin_HomepageState extends State<admin_Homepage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("Admin Dashboard"),
+        title: const Text("Admin Dashboard"),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => LoginPage()));
+                  MaterialPageRoute(builder: (context) => const LoginPage()));
             },
-            icon: Text(
+            icon: const Text(
               "Log Out",
               style: TextStyle(
                 color: Colors.red,
@@ -54,15 +53,15 @@ class _admin_HomepageState extends State<admin_Homepage> {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: FutureBuilder(
           future: getclassdata(),
           builder: ((context, snapshot) {
             if (snapshot.hasData && snapshot.data?.length != 0) {
               return ListView.builder(
                 itemCount: snapshot.data?.length,
-                physics: BouncingScrollPhysics(),
-                padding: EdgeInsets.only(top: 10, bottom: 80),
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.only(top: 10, bottom: 80),
                 itemBuilder: (context, i) {
                   return classTile(
                     classmodel: snapshot.data[i],
@@ -82,7 +81,7 @@ class _admin_HomepageState extends State<admin_Homepage> {
                 ),
               );
             } else {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
@@ -93,15 +92,15 @@ class _admin_HomepageState extends State<admin_Homepage> {
         onPressed: () async {
           await Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => add_newclass(),
+              builder: (context) => const add_newclass(),
             ),
           );
           setState(() {
             getclassdata();
           });
         },
-        label: Text("Add New Class"),
-        icon: Icon(Icons.add_rounded),
+        label: const Text("Add New Class"),
+        icon: const Icon(Icons.add_rounded),
       ),
     );
   }
@@ -116,7 +115,7 @@ class classTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 7),
+      margin: const EdgeInsets.symmetric(vertical: 7),
       child: ElevatedButton(
         onPressed: () async {
           await Navigator.push(
@@ -140,7 +139,7 @@ class classTile extends StatelessWidget {
           ),
         ),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           // height: 100,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
@@ -160,7 +159,7 @@ class classTile extends StatelessWidget {
                   data: classmodel.classkey,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
@@ -171,18 +170,18 @@ class classTile extends StatelessWidget {
                     children: [
                       Text(
                         classmodel.classname,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text(
                         classmodel.classdescription,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                         ),
                       ),

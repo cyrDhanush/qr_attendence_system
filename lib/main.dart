@@ -6,6 +6,7 @@ import 'package:qr_attendence_system/global.dart';
 import 'package:qr_attendence_system/screens/Adminscreens/add_new_class.dart';
 import 'package:qr_attendence_system/screens/Adminscreens/admin_homepage.dart';
 import 'package:qr_attendence_system/screens/Adminscreens/class_page.dart';
+import 'package:qr_attendence_system/screens/Adminscreens/filescreen.dart';
 import 'package:qr_attendence_system/screens/Adminscreens/studentlist.dart';
 import 'package:qr_attendence_system/bin/qr_scanning_screen.dart';
 import 'package:qr_attendence_system/screens/Userscreens/userHomepage.dart';
@@ -25,8 +26,6 @@ void main() async {
   );
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // Userservices us = Userservices();
-  // us.getuserDetails(demostudentid);
   runApp(const MyApp());
 }
 
@@ -41,10 +40,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.white,
         colorSchemeSeed: maincolor,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           scrolledUnderElevation: 7,
         ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
           elevation: 7,
         ),
       ),
@@ -55,7 +54,8 @@ class MyApp extends StatelessWidget {
       // home: qr_scanning(),
       // home: fingerprint(),
       // home: studentList(),
-      home: LoginPage(),
+      home: const LoginPage(),
+      // home: FileScreen(),
 
       // home: userHomepage(
       //   userkey: 'XR6aq88D55SQgRb1OSQnImn5OcD2',

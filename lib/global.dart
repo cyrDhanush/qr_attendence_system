@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 // Color maincolor = Color(0xff23967F);
-Color maincolor = Color(0xff783F8E);
-Color backgroundcolor = Color(0xffFDE2FF);
+Color maincolor = const Color(0xff783F8E);
+Color backgroundcolor = const Color(0xffFDE2FF);
 
 Opacity background(context) {
   return Opacity(
@@ -27,7 +27,7 @@ InputDecoration textfielddecoration = InputDecoration(
   ),
   enabledBorder: OutlineInputBorder(
     borderRadius: BorderRadius.circular(12),
-    borderSide: BorderSide(
+    borderSide: const BorderSide(
       color: Colors.black,
       width: 1,
     ),

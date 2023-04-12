@@ -26,17 +26,16 @@ class Adminservices {
   }
 
   Future getallclasses() async {
-    QuerySnapshot snapshot = await classref.get();
-    List s = snapshot.docs.map((e) => iddata(e.id, e.data())).toList();
-
+    QuerySnapshot querySnapshot = await classref.get();
     List<Classmodel> classmodellist = [];
-    for (iddata i in s) {
+
+    for (DocumentSnapshot doc in querySnapshot.docs) {
       classmodellist.add(
         Classmodel(
-          classkey: i.id,
-          classname: i.data['classname'],
-          classdescription: i.data['classdescription'],
-          joinedusers: i.data['joinedusers'],
+          classkey: doc.id.toString(),
+          classname: doc.get('classname').toString(),
+          classdescription: doc.get('classdescription'),
+          joinedusers: doc.get('joinedusers'),
         ),
       );
     }

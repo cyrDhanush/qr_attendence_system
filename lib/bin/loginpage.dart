@@ -29,20 +29,21 @@ class _LoginpageState extends State<Loginpage> {
       context: context,
       barrierDismissible: false,
       builder: (context) => SimpleDialog(
-        contentPadding: EdgeInsets.symmetric(vertical: 25, horizontal: 25),
-        title: Text("Enter Your Name"),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 25, horizontal: 25),
+        title: const Text("Enter Your Name"),
         children: [
           TextField(
             controller: name_controller,
             decoration: textfielddecoration.copyWith(
               hintText: "Enter Your Name",
-              contentPadding: EdgeInsets.symmetric(
+              contentPadding: const EdgeInsets.symmetric(
                 vertical: 5,
                 horizontal: 10,
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
@@ -54,7 +55,7 @@ class _LoginpageState extends State<Loginpage> {
                     Navigator.pop(context);
                   }
                 },
-                child: Text("Ok"),
+                child: const Text("Ok"),
               ),
             ],
           )
@@ -93,11 +94,11 @@ class _LoginpageState extends State<Loginpage> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(Icons.arrow_back),
+                        icon: const Icon(Icons.arrow_back),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   Row(
@@ -169,7 +170,7 @@ class _LoginpageState extends State<Loginpage> {
                               ),
                             ),
                             keyboardType: TextInputType.phone,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
@@ -183,13 +184,13 @@ class _LoginpageState extends State<Loginpage> {
                   // SizedBox(
                   //   height: 50,
                   // ),
-                  Spacer(),
+                  const Spacer(),
                   ElevatedButton(
                     onLongPress: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => admin_Homepage()));
+                              builder: (context) => const admin_Homepage()));
                     },
                     onPressed: () async {
                       if (phoneno_controller.text.length == 10) {
@@ -210,7 +211,7 @@ class _LoginpageState extends State<Loginpage> {
                       height: 70,
                       width: 110,
                       alignment: Alignment.center,
-                      child: Text(
+                      child: const Text(
                         "Login",
                         style: TextStyle(
                           fontSize: 20,
@@ -218,7 +219,7 @@ class _LoginpageState extends State<Loginpage> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 100,
                   ),
                 ],

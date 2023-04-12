@@ -19,6 +19,7 @@ class _qr_scanningState extends State<qr_scanning> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
+        // ignore: prefer_const_constructors
         title: Text("Scan the QR Code"),
         centerTitle: true,
       ),

@@ -62,7 +62,7 @@ class _userHomepageState extends State<userHomepage> {
       ),
       builder: (context) => Container(
         height: 300,
-        padding: EdgeInsets.only(bottom: 20, left: 20, right: 20, top: 5),
+        padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20, top: 5),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -74,7 +74,7 @@ class _userHomepageState extends State<userHomepage> {
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
-            Text(
+            const Text(
               "Do You Want to Join this Class ?",
               style: TextStyle(
                 fontSize: 18,
@@ -83,7 +83,7 @@ class _userHomepageState extends State<userHomepage> {
             Text(
               // "Class Name",
               classname,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -92,11 +92,11 @@ class _userHomepageState extends State<userHomepage> {
               // 'class description',
               classdescription,
               textAlign: TextAlign.justify,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Row(
@@ -117,13 +117,13 @@ class _userHomepageState extends State<userHomepage> {
                     height: 30,
                     width: 60,
                     alignment: Alignment.center,
-                    child: Text(
+                    child: const Text(
                       "Cancel",
                       style: TextStyle(color: Colors.red),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 TextButton(
@@ -158,7 +158,7 @@ class _userHomepageState extends State<userHomepage> {
                     height: 30,
                     width: 80,
                     alignment: Alignment.center,
-                    child: Text(
+                    child: const Text(
                       "Join",
                       style: TextStyle(color: Colors.white),
                     ),
@@ -176,7 +176,7 @@ class _userHomepageState extends State<userHomepage> {
     showModalBottomSheet(
         context: context,
         builder: (context) => Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               height: 300,
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -184,21 +184,21 @@ class _userHomepageState extends State<userHomepage> {
                   // SizedBox(
                   //   height: 20,
                   // ),
-                  Expanded(
+                  const Expanded(
                     child: Icon(
                       CupertinoIcons.nosign,
                       color: Colors.red,
                       size: 80,
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Sorry, Incorrect class QR code !!",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextButton(
@@ -215,7 +215,7 @@ class _userHomepageState extends State<userHomepage> {
                     child: Container(
                       height: 30,
                       alignment: Alignment.center,
-                      child: Text(
+                      child: const Text(
                         "Cancel",
                         style: TextStyle(color: Colors.red),
                       ),
@@ -229,7 +229,7 @@ class _userHomepageState extends State<userHomepage> {
   @override
   Widget build(BuildContext context) {
     return (preloading == true)
-        ? (loadingScreen())
+        ? (const loadingScreen())
         : (Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
@@ -237,10 +237,12 @@ class _userHomepageState extends State<userHomepage> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()));
                   },
-                  child: Text(
+                  child: const Text(
                     "Log Out",
                     style: TextStyle(
                       color: Colors.red,
@@ -252,8 +254,8 @@ class _userHomepageState extends State<userHomepage> {
             body: Container(
               child: (classDetails.length != 0)
                   ? (ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      padding: EdgeInsets.only(bottom: 100, top: 10),
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.only(bottom: 100, top: 10),
                       itemCount: classDetails.length,
                       itemBuilder: (context, i) {
                         return classCard(
@@ -299,8 +301,8 @@ class _userHomepageState extends State<userHomepage> {
                   }
                 }
               },
-              icon: Icon(Icons.qr_code_scanner_rounded),
-              label: Text("Scan QR Code"),
+              icon: const Icon(Icons.qr_code_scanner_rounded),
+              label: const Text("Scan QR Code"),
             ),
           ));
   }
@@ -331,7 +333,7 @@ class _classCardState extends State<classCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+      margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
       child: ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
@@ -343,7 +345,7 @@ class _classCardState extends State<classCard> {
         ),
         child: Container(
           // height: 100,
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
           width: MediaQuery.of(context).size.width,
           child: Row(
             children: [
@@ -355,19 +357,19 @@ class _classCardState extends State<classCard> {
                     Text(
                       // "Class Name",
                       widget.classname,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
                       widget.classdescription,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.black,
                       ),
@@ -385,7 +387,7 @@ class _classCardState extends State<classCard> {
 
                   print('removed');
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.logout_rounded,
                   color: Colors.red,
                   semanticLabel: "Log Out of Class",

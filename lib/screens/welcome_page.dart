@@ -32,21 +32,21 @@ class _WelcomePageState extends State<WelcomePage> {
           background(context),
           SafeArea(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Container(
                     //top photo
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     height: 500,
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
+                        const Text(
                           "QR Code Attendence System",
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -78,7 +78,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       borderRadius: BorderRadius.circular(22),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Container(
                     // container for login and signup bar
                     height: 80,
@@ -95,14 +95,14 @@ class _WelcomePageState extends State<WelcomePage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                const Text(
                                   "Login with Us",
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Icon(
@@ -119,7 +119,7 @@ class _WelcomePageState extends State<WelcomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => LoginPage(),
+                                  builder: (context) => const LoginPage(),
                                 ),
                               );
                             },
@@ -135,7 +135,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                   color: maincolor,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                child: Text(
+                                child: const Text(
                                   "Login",
                                   style: TextStyle(
                                     fontSize: 20,
@@ -150,7 +150,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       ],
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                 ],
               ),
             ),

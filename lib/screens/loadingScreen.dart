@@ -15,16 +15,16 @@ class loadingScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Container(
-                child: CircularProgressIndicator(),
+                child: const CircularProgressIndicator(),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              Text(
+              const Text(
                 'Loading',
                 style: TextStyle(
                   fontSize: 18,

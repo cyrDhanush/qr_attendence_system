@@ -26,11 +26,11 @@ class _fingerprintState extends State<fingerprint> {
               context: context,
             );
             print('Started');
-            await Future.delayed(Duration(seconds: 5));
+            await Future.delayed(const Duration(seconds: 5));
             print('ended');
             Navigator.pop(context);
           },
-          child: Text('Finger Print'),
+          child: const Text('Finger Print'),
         ),
       ),
     );
