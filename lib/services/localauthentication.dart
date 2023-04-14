@@ -8,7 +8,7 @@ class localAuthentication {
       bool isauthenticated = await _LocalAuth.authenticate(
         localizedReason: reason,
         options: AuthenticationOptions(
-          biometricOnly: true,
+          biometricOnly: false,
           stickyAuth: true,
           sensitiveTransaction: true,
         ),
